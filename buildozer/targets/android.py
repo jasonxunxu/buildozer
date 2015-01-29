@@ -14,7 +14,7 @@ if sys.platform == 'win32':
 ANDROID_API = '14'
 ANDROID_MINAPI = '8'
 ANDROID_SDK_VERSION = '21'
-ANDROID_NDK_VERSION = '9c'
+ANDROID_NDK_VERSION = '9d'
 APACHE_ANT_VERSION = '1.9.4'
 
 import traceback
