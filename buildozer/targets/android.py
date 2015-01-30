@@ -475,10 +475,13 @@ class TargetAndroid(Target):
                                         # p4a complaining
         cmd('./distribute.sh -m "{0}" -d "{1}"'.format(modules_str, dist_name),
             cwd=self.pa_dir)
-        self.buildozer.debug('Remove temporary build files')
-        self.buildozer.rmdir(join(self.pa_dir, 'build'))
-        self.buildozer.rmdir(join(self.pa_dir, '.packages'))
-        self.buildozer.rmdir(join(self.pa_dir, 'src', 'jni', 'obj', 'local'))
+
+        if config.getdefault('buildozer', 'remove_build', True)
+           self.buildozer.debug('Remove temporary build files')
+           self.buildozer.rmdir(join(self.pa_dir, 'build'))
+           self.buildozer.rmdir(join(self.pa_dir, '.packages'))
+           self.buildozer.rmdir(join(self.pa_dir, 'src', 'jni', 'obj', 'local'))
+
         self.buildozer.info('Distribution compiled.')
 
         # ensure we will not compile again
