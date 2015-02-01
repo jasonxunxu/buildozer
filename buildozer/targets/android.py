@@ -476,8 +476,8 @@ class TargetAndroid(Target):
         cmd('./distribute.sh -m "{0}" -d "{1}"'.format(modules_str, dist_name),
             cwd=self.pa_dir)
 
-        if config.getdefault('buildozer', 'remove_build', True):
-           self.buildozer.debug('Remove temporary build files')
+        if self.buildozer.config.getbooldefault('buildozer', 'remove_build', True):
+           self.buildozer.info('Remove temporary build files')
            self.buildozer.rmdir(join(self.pa_dir, 'build'))
            self.buildozer.rmdir(join(self.pa_dir, '.packages'))
            self.buildozer.rmdir(join(self.pa_dir, 'src', 'jni', 'obj', 'local'))
