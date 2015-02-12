@@ -541,7 +541,8 @@ class TargetAndroid(Target):
             ' --package {package}'
             ' --{storage_type} {appdir}'
             ' --sdk {androidsdk}'
-            ' --minsdk {androidminsdk}').format(
+            ' --minsdk {androidminsdk}'
+            ' {launcheroption}').format(
             python=executable,
             name=quote(config.get('app', 'title')),
             version=version,
@@ -552,7 +553,9 @@ class TargetAndroid(Target):
             androidminsdk=config.getdefault(
                 'app', 'android.minsdk', self.android_minapi),
             androidsdk=config.getdefault(
-                'app', 'android.sdk', self.android_api))
+                'app', 'android.sdk', self.android_api),
+            launcheroption = '--launcher' if config.getbooldefault(
+                'app', 'android.launcher', False) else '')
 
         # add permissions
         permissions = config.getlist('app',

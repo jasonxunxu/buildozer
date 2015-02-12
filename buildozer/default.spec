@@ -85,6 +85,9 @@ fullscreen = 1
 # (list) python-for-android whitelist
 #android.p4a_whitelist =
 
+# (bool) Build a Launcher app
+#android.launcher = False
+
 # (str) Android entry point, default is ok for Kivy-based app
 #android.entrypoint = org.renpy.android.PythonActivity
 
