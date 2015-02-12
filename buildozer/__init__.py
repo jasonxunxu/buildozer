@@ -455,8 +455,12 @@ class Buildozer(object):
         self.cmd('curl http://python-distribute.org/distribute_setup.py | venv/bin/python', get_stdout=True, cwd=self.buildozer_dir)
 
         self.debug('Install requirement {} in virtualenv'.format(module))
+        try:
+            module_dir = environ['P4A_{}_DIR'.format(module)]
+        except KeyError:
+            module_dir = module
         self.cmd('pip install --download-cache={} --target={} {}'.format(
-                self.global_cache_dir, self.applibs_dir, module),
+                self.global_cache_dir, self.applibs_dir, module_dir),
                 env=self.env_venv,
                 cwd=self.buildozer_dir)
 
