@@ -448,12 +448,16 @@ class TargetAndroid(Target):
         app_requirements = self.buildozer.config.getlist('app',
                 'requirements', '')
 
-        # we need to extract the requirements that python-for-android knows
-        # about
-        available_modules = self.get_available_packages()
-        onlyname = lambda x: x.split('==')[0]
-        android_requirements = [x for x in app_requirements if onlyname(x) in
-                            available_modules]
+        if self.buildozer.config.getbooldefault('app', 'android.launcher', False):
+            # for launcher, all modules including pure-python ones are built by python-for-android
+            android_requirements = app_requirements
+        else:
+            # we need to extract the requirements that python-for-android knows
+            # about
+            available_modules = self.get_available_packages()
+            onlyname = lambda x: x.split('==')[0]
+            android_requirements = [x for x in app_requirements if onlyname(x) in
+                                available_modules]
 
         need_compile = 0
         if last_requirements != android_requirements:
