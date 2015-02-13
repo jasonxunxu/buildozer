@@ -423,13 +423,17 @@ class Buildozer(object):
         '''Ensure the application requirements are all available and ready to be
         packaged as well.
         '''
-        requirements = self.config.getlist('app', 'requirements', '')
-        target_available_packages = self.target.get_available_packages()
+        if self.targetname=='android' and self.config.getbooldefault('app', 'android.launcher', False):
+            # for Android launcher all modules should be built into the platform
+            requirements = []
+        else:
+            requirements = self.config.getlist('app', 'requirements', '')
+            target_available_packages = self.target.get_available_packages()
 
-        # remove all the requirements that the target can compile
-        onlyname = lambda x: x.split('==')[0]
-        requirements = [x for x in requirements if onlyname(x) not in
-                target_available_packages]
+            # remove all the requirements that the target can compile
+            onlyname = lambda x: x.split('==')[0]
+            requirements = [x for x in requirements if onlyname(x) not in
+                    target_available_packages]
 
         # did we already installed the libs ?
         if exists(self.applibs_dir) and \
